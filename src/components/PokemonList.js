@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { pokemonTypes } from "../constants/pokemonTypes";
 
 export const PokemonList = () => {
   const [pokemonList, setPokemonList] = useState([]);
@@ -25,7 +26,8 @@ export const PokemonList = () => {
 
   const pokemon1 = pokemonList[7];
   const pokemon2 = pokemonList[19];
-  console.log(pokemon1, pokemon2);
+  //   console.log(pokemon1, pokemon2);
+  console.log(pokemonTypes);
 
   const chooseWinner = (pokemon1, pokemon2) => {};
 
