@@ -1,5 +1,4 @@
 export const pokemonTypes = [
-    {exemplu: {altxemplu: 1}},
   {
     fighthing: {
       normal: 2,
