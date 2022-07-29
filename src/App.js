@@ -1,10 +1,8 @@
-import logo from "./logo.svg";
-import "./App.css";
+import { useEffect, useState } from "react";
+import { PokemonList } from "./components/PokemonList";
 
 function App() {
-  // return (
-    
-  // );
+  return <PokemonList />;
 }
 
 export default App;
