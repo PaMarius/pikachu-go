@@ -3,7 +3,7 @@ import { PokemonList } from "./components/PokemonList";
 import { PokemonCard } from "./components/PokemonCard";
 import { pokemonTypes } from "./constants/pokemonTypes";
 import { FinalPage } from "./components/final page/FinalPage";
-import {StartPage} from "./components/StartPage";
+import StartPage from "./components/StartPage";
 
 function App() {
   const [page, setPage] = useState(0);
