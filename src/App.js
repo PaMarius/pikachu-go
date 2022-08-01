@@ -1,14 +1,22 @@
 import { useEffect, useState } from "react";
 import { PokemonList } from "./components/PokemonList";
+import StartPage from "./components/StartPage";
 
 function App() {
-<<<<<<< HEAD
-  //ssdoiifjdoifjsd
-  // return (
-  // );
-=======
-  return <PokemonList />;
->>>>>>> 267c4ce21d8b193cedee4278a2d0c3ffcd3dc967
+  const [page, setPage] = useState(0);
+
+  function changePage() {
+    switch (page) {
+      case 0:
+        return <StartPage setPage={setPage} />;
+      case 1:
+        return <PokemonList />;
+      case 2:
+        return <></>;
+    }
+  }
+
+  return changePage();
 }
 
 export default App;
