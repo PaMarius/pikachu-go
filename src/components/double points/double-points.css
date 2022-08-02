@@ -1,0 +1,44 @@
+@import "../../constants/css-reset.css";
+@font-face {
+  font-family: "Pokemon Hollow";
+  src: url("../../fonts/Pokemon\ Hollow.ttf");
+}
+
+@font-face {
+  font-family: "Pokemon Solid";
+  src: url("../../fonts/Pokemon\ Solid.ttf");
+}
+@font-face {
+  font-family: "Pocket Monk";
+  src: url("../../fonts/PocketMonk-15ze.ttf");
+}
+* {
+  box-sizing: border-box;
+}
+
+.modal {
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.white-container {
+  width: 50%;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.title {
+  font-family: "Pocket Monk";
+  text-align: center;
+  font-size: 2.5em;
+  letter-spacing: 3px;
+  margin-top: 1em;
+  color: #ff4c4c;
+}
