@@ -1,11 +1,22 @@
+@font-face {
+  font-family: Pokemon;
+  src: url("../constants/Fonts/AGENTRED.TTF");
+}
+
 .cards {
   display: flex;
   gap: 550px;
   justify-content: center;
 }
 
-.filling-space1 {
-  width: 100%;
+.show-score {
+  font-family: "Mouse Memoirs";
+  font-size: 50px;
+  font-weight: bold;
+  color: rgb(125, 154, 235);
+  position: relative;
+  left: 0px;
+  width: 50%;
   height: 10%;
 }
 
