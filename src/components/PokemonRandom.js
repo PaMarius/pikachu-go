@@ -54,7 +54,7 @@ export const PokemonRandom = ({ setPage }) => {
   return (
     <>
       <div className="container2">
-        <div className="filling-space1">{handleChoice} POINTS</div>
+        <div className="show-score">Your score: {handleChoice} POINTS</div>
         <div className="cards">
           {pokemonList.length > 0 &&
             pokemonList.map((pokemon, index) => {
