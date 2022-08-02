@@ -2,59 +2,100 @@ import { useEffect, useState } from "react";
 import { pokemonTypes } from "../constants/pokemonTypes";
 import { PokemonCard } from "./PokemonCard";
 import "./PokemonRandom.scss";
-import { handleDamage } from "./DamageCalculation";
+import calculateDamage from "../constants/calculateDamage";
 
-export const PokemonRandom = ({ setPage }) => {
+export const PokemonRandom = ({ setPage, points, setPoints }) => {
   const [pokemonList, setPokemonList] = useState([]);
-  const [click, setClick] = useState(0);
-  const [choice, setChoice] = useState("");
-  const [handleChoice, setHandleChoice] = useState(0);
-  const [winner, setWinner] = useState("");
-
-  async function getPokemon() {
+  async function getData() {
     const result = await Promise.all(
       [0, 1].map(async (item) => {
-        const randomPokemon = Math.floor(Math.random() * 151);
-        const url = `https://pokeapi.co/api/v2/pokemon/${randomPokemon}`;
-        const fetchData = await fetch(url);
+        const pokemon = await fetch(
+          `https://pokeapi.co/api/v2/pokemon/${Math.floor(Math.random() * 151)}`
+        );
+        const result = await pokemon.json();
+        return result;
+      })
+    );
+    setPokemonList([...result]);
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  async function fetchType(pokemon) {
+    const data = await Promise.all(
+      pokemon.map(async (item) => {
+        const fetchData = await fetch(`https://pokeapi.co/api/v2/type/${item}`);
         const result = await fetchData.json();
         return result;
       })
     );
-    setPokemonList(result);
+    return data;
   }
 
-  useEffect(() => {
-    getPokemon();
-    if (handleChoice >= 3) {
-      if (choice === "win" && winner === "win") {
-        setHandleChoice(handleChoice + 1);
-      } else if (choice === "draw" && winner === "draw") {
-        setHandleChoice(handleChoice + 1);
-      } else if (choice === "lose" && winner === "lose") {
-        setHandleChoice(handleChoice + 1);
-      } else {
-        setPage(0);
-      }
-    } else {
-      if (choice === "win" && winner === "win") {
-        setHandleChoice(handleChoice + 1);
-      } else if (choice === "draw" && winner === "draw") {
-        setHandleChoice(handleChoice + 1);
-      } else if (choice === "lose" && winner === "lose") {
-        setHandleChoice(handleChoice + 1);
-      }
-    }
-  }, [click]);
+  async function handleClick(buttonVal) {
+    const userChoice = pokemonList[0].types.map((item) => item.type.name);
+    const computerChoice = pokemonList[1].types.map((item) => item.type.name);
+    const fetchPokemonType1 = await fetchType(userChoice);
+    const fetchPokemonType2 = await fetchType(computerChoice);
 
-  const handleClick = () => {
-    setClick(click + 1);
-  };
+    const userDamage = calculateDamage(
+      userChoice,
+      computerChoice,
+      fetchPokemonType1
+    );
+    const computerDamage = calculateDamage(
+      computerChoice,
+      userChoice,
+      fetchPokemonType2
+    );
+
+    if (userDamage === computerDamage) {
+      const userPokemon = pokemonList[0].base_experience;
+      const computerPokemon = pokemonList[1].base_experience;
+      if (
+        (userPokemon > computerPokemon && buttonVal === "win") ||
+        (buttonVal === "draw" && userPokemon === computerPokemon)
+      ) {
+        setPoints({
+          userPoints: points.userPoints + 1,
+          computerPoints: points.computerPoints,
+        });
+      } else if (userPokemon < computerPokemon && buttonVal === "lose") {
+        setPoints({
+          userPoints: points.userPoints + 1,
+          computerPoints: points.computerPoints,
+        });
+      } else {
+        setPoints({
+          userPoints: points.userPoints,
+          computerPoints: points.computerPoints + 1,
+        });
+      }
+    } else if (userDamage > computerDamage && buttonVal === "win") {
+      setPoints({
+        userPoints: points.userPoints + 1,
+        computerPoints: points.computerPoints,
+      });
+    } else if (userDamage < computerDamage && buttonVal === "lose") {
+      setPoints({
+        userPoints: points.userPoints + 1,
+        computerPoints: points.computerPoints,
+      });
+    } else {
+      setPoints({
+        userPoints: points.userPoints,
+        computerPoints: points.computerPoints + 1,
+      });
+    }
+    getData();
+  }
 
   return (
     <>
       <div className="container2">
-        <div className="show-score">Your score: {handleChoice} POINTS</div>
+        <div className="show-score">Your score: {points.userPoints} POINTS</div>
         <div className="cards">
           {pokemonList.length > 0 &&
             pokemonList.map((pokemon, index) => {
@@ -65,9 +106,7 @@ export const PokemonRandom = ({ setPage }) => {
         <div className="buttons">
           <div
             onClick={() => {
-              handleClick();
-              handleDamage(pokemonList, setWinner);
-              setChoice("win");
+              handleClick("win");
             }}
             className="win-bttn"
           >
@@ -75,9 +114,7 @@ export const PokemonRandom = ({ setPage }) => {
           </div>
           <div
             onClick={() => {
-              handleClick();
-              handleDamage(pokemonList, setWinner);
-              setChoice("draw");
+              handleClick("draw");
             }}
             className="draw-bttn"
           >
@@ -85,14 +122,15 @@ export const PokemonRandom = ({ setPage }) => {
           </div>
           <div
             onClick={() => {
-              handleClick();
-              handleDamage(pokemonList, setWinner);
-              setChoice("lose");
+              handleClick("lose");
             }}
             className="lose-bttn"
           >
             LOSE
           </div>
+          {points.userPoints + points.computerPoints >= 3 ? (
+            <button onClick={() => setPage(2)}>End game</button>
+          ) : null}
         </div>
       </div>
     </>

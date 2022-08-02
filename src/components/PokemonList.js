@@ -1,79 +1,177 @@
 import { useEffect, useState } from "react";
 import { pokemonTypes } from "../constants/pokemonTypes";
+import calculateDamage from "../constants/calculateDamage";
 
-export const PokemonList = () => {
-  const [pokemonList, setPokemonList] = useState([]);
-  const [playerScore, setPlayerScore] = useState(0);
+export const PokemonList = ({ points, setPoints, setPage }) => {
+  const [choice, setChoice] = useState([]);
+
+  async function getData() {
+    const result = await Promise.all(
+      [0, 1].map(async (item) => {
+        const pokemon = await fetch(
+          `https://pokeapi.co/api/v2/pokemon/${Math.floor(Math.random() * 151)}`
+        );
+        const result = await pokemon.json();
+        return result;
+      })
+    );
+    setChoice([...result]);
+  }
 
   useEffect(() => {
-    const fetchData = async () => {
-      const apiURL = "https://pokeapi.co/api/v2/pokemon?limit=20";
-      const res = await fetch(apiURL);
-      const { results } = await res.json();
-
-      const parsedPokemon = await Promise.all(
-        results.map(async (pokemon, index) => {
-          const specificPokemon = await fetch(pokemon.url);
-          const parsedPokemon = await specificPokemon.json();
-          return { ...parsedPokemon };
-        })
-      );
-      setPokemonList(parsedPokemon);
-    };
-    fetchData();
+    getData();
   }, []);
 
-  const chooseWinner = () => {
-    const pokemon1 = pokemonList[7];
-    const pokemon2 = pokemonList[2];
+  async function fetchType(pokemon) {
+    const data = await Promise.all(
+      pokemon.map(async (item) => {
+        const fetchData = await fetch(`https://pokeapi.co/api/v2/type/${item}`);
+        const result = await fetchData.json();
+        return result;
+      })
+    );
+    return data;
+  }
 
-    const typePokemon1 = pokemon1.types.map((type) => {
-      return type.type.name;
-    });
+  async function handleClick(buttonVal) {
+    const userChoice = choice[0].types.map((item) => item.type.name);
+    const computerChoice = choice[1].types.map((item) => item.type.name);
+    const fetchPokemonType1 = await fetchType(userChoice);
+    const fetchPokemonType2 = await fetchType(computerChoice);
 
-    const typePokemon2 = pokemon2.types.map((type) => {
-      return type.type.name;
-    });
+    const userDamage = calculateDamage(
+      userChoice,
+      computerChoice,
+      fetchPokemonType1
+    );
+    const computerDamage = calculateDamage(
+      computerChoice,
+      userChoice,
+      fetchPokemonType2
+    );
 
-    let damage1 = 0;
-    let damage2 = 0;
-
-    console.log(typePokemon1, typePokemon2);
-
-    function calculateDamage(typePokemon1, typePokemon2) {
-      let damage = 0;
-      for (let type1 of typePokemon1) {
-        for (let type2 of typePokemon2) {
-          const foundDamageValue = pokemonTypes.find((element) => {
-            return element.hasOwnProperty(type1);
-          })[`${type1}`][`${type2}`];
-
-          damage += foundDamageValue;
+    if (userDamage === computerDamage) {
+      const userPokemon = choice[0];
+      const computerPokemon = choice[1];
+      if (userPokemon.base_experience > computerPokemon.base_experience) {
+        if (buttonVal === "win") {
+          setPoints({
+            userPoints: points.userPoints + 1,
+            computerPoints: points.computerPoints,
+          });
+        } else {
+          setPoints({
+            userPoints: points.userPoints,
+            computerPoints: points.computerPoints + 1,
+          });
         }
-        damage = damage / typePokemon2.length;
+        getData();
+        return;
+      } else if (
+        userPokemon.base_experience < computerPokemon.base_experience
+      ) {
+        if (buttonVal === "lose") {
+          setPoints({
+            userPoints: points.userPoints + 1,
+            computerPoints: points.computerPoints,
+          });
+        } else {
+          setPoints({
+            userPoints: points.userPoints,
+            computerPoints: points.computerPoints + 1,
+          });
+        }
+        getData();
+        return;
+      } else {
+        if (buttonVal === "draw") {
+          setPoints({
+            userPoints: points.userPoints + 1,
+            computerPoints: points.computerPoints,
+          });
+        } else {
+          setPoints({
+            userPoints: points.userPoints,
+            computerPoints: points.computerPoints + 1,
+          });
+        }
+        getData();
+        return;
       }
-      return damage;
     }
-
-    damage1 = calculateDamage(typePokemon1, typePokemon2);
-    damage2 = calculateDamage(typePokemon2, typePokemon1);
-
-    console.log(damage1);
-    console.log(damage2);
-
-    // if (damage1 > damage2) {
-    //   return;
-    // }
-
-    setPlayerScore(playerScore + 1);
-    console.log(playerScore);
-  };
-
-  return (
-    <div>
-      {pokemonList.map((pokemon) => {
-        return <div onClick={chooseWinner}>{pokemon.name}</div>;
+    if (userDamage > computerDamage) {
+      if (buttonVal === "win") {
+        setPoints({
+          userPoints: points.userPoints + 1,
+          computerPoints: points.computerPoints,
+        });
+      } else {
+        setPoints({
+          userPoints: points.userPoints,
+          computerPoints: points.computerPoints + 1,
+        });
+      }
+    } else {
+      if (buttonVal === "lose") {
+        setPoints({
+          userPoints: points.userPoints + 1,
+          computerPoints: points.computerPoints,
+        });
+      } else {
+        setPoints({
+          userPoints: points.userPoints,
+          computerPoints: points.computerPoints + 1,
+        });
+      }
+    }
+    getData();
+  }
+  return choice.length > 1 ? (
+    <div style={{ display: "flex" }}>
+      {choice.map((item, index) => {
+        return (
+          <div
+            style={{
+              border: "1px solid black",
+              margin: "10px",
+              width: "300px",
+              height: "300px",
+            }}
+            key={index}
+          >
+            {item?.name}
+          </div>
+        );
       })}
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <button
+          onClick={() => {
+            handleClick("win");
+          }}
+        >
+          win
+        </button>
+        <button
+          onClick={() => {
+            handleClick("draw");
+          }}
+        >
+          draw
+        </button>
+        <button
+          onClick={() => {
+            handleClick("lose");
+          }}
+        >
+          lose
+        </button>
+
+        {points.userPoints + points.computerPoints >= 3 ? (
+          <button onClick={() => setPage(2)}>End game</button>
+        ) : null}
+      </div>
+      <p>user:{points.userPoints}</p>
+      <p>computer:{points.computerPoints}</p>
     </div>
-  );
+  ) : null;
 };
