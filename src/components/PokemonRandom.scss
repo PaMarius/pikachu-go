@@ -46,7 +46,9 @@
 
 .win-bttn,
 .draw-bttn,
-.lose-bttn {
+.lose-bttn, 
+.end-bttn {
+  // font-family: "Mouse Memoirs";
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   z-index: 1;
   border-radius: 5px;
@@ -63,7 +65,8 @@
 
 .win-bttn::after,
 .lose-bttn::after,
-.draw-bttn::after {
+.draw-bttn::after,
+.end-bttn::after {
   border-radius: 5px;
   content: "";
   background-color: #ff4c4c;
@@ -78,7 +81,10 @@
 
 .win-bttn:hover::after,
 .lose-bttn:hover::after,
-.draw-bttn:hover::after {
+.draw-bttn:hover::after,
+.end-bttn:hover::after {
   top: 0px;
   left: 0px;
 }
+
+

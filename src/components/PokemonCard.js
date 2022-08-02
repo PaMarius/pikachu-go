@@ -1,5 +1,5 @@
 import "./pokemonCard.css";
-import { PokemonList } from "./PokemonList";
+import { PokemonRandom } from "./PokemonRandom";
 import "./pokemonsTypeColor.css";
 
 export const PokemonCard = ({ pokemon }) => {

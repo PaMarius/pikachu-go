@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { pokemonTypes } from "../constants/pokemonTypes";
 import { PokemonCard } from "./PokemonCard";
 import "./PokemonRandom.scss";
 import calculateDamage from "../constants/calculateDamage";
@@ -129,7 +128,9 @@ export const PokemonRandom = ({ setPage, points, setPoints }) => {
             LOSE
           </div>
           {points.userPoints + points.computerPoints >= 3 ? (
-            <button onClick={() => setPage(2)}>End game</button>
+            <button onClick={() => setPage(2)} className="end-bttn">
+              END GAME
+            </button>
           ) : null}
         </div>
       </div>
