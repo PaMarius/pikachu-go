@@ -20,7 +20,7 @@
   height: 10%;
 }
 
-.filling-space2 {
+.filling-space {
   width: 100%;
   height: 10%;
 }
@@ -38,6 +38,11 @@
   align-items: center;
 }
 
+.timer {
+  font-size: 100px;
+  margin-bottom: 200px;
+}
+
 .buttons {
   display: flex;
   justify-content: center;
@@ -48,7 +53,8 @@
 .draw-bttn,
 .lose-bttn, 
 .end-bttn {
-  // font-family: "Mouse Memoirs";
+  font-family: "Mouse Memoirs";
+  font-size: 250px;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   z-index: 1;
   border-radius: 5px;

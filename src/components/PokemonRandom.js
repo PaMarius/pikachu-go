@@ -137,7 +137,7 @@ export const PokemonRandom = ({ setPage, points, setPoints }) => {
                 LOSE
               </div>
               {points.userPoints + points.computerPoints >= 3 ? (
-                <button onClick={() => setPage(2)} className="end-bttn">
+                <button onClick={endGameHandler} className="end-bttn">
                   END GAME
                 </button>
               ) : null}
@@ -145,6 +145,15 @@ export const PokemonRandom = ({ setPage, points, setPoints }) => {
           </div>
         ) : (
           <div className="timer">{timer}</div>
+        )}
+
+        {modalIsOpen && (
+          <DoublePoints
+            onClick={closeModalHandler}
+            userPoints={points.userPoints}
+            setPoints={setPoints}
+            setPage={setPage}
+          />
         )}
       </div>
     </>
