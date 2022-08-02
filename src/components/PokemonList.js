@@ -75,7 +75,7 @@ export const PokemonList = ({ points, setPoints, setPage }) => {
       );
       console.log(userDamage, "userDamage");
       console.log(computerDamage, "computerDamage");
-      getData();
+
       if (userDamage === computerDamage) {
         const userPokemon = choice[0];
         const computerPokemon = choice[1];
@@ -208,7 +208,7 @@ export const PokemonList = ({ points, setPoints, setPage }) => {
         >
           lose
         </button>
-        {/* <button onClick={handleClick}>Next</button> */}
+
         {points.userPoints + points.computerPoints >= 3 ? (
           <button onClick={() => setPage(2)}>End game</button>
         ) : null}
