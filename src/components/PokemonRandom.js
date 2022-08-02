@@ -146,7 +146,7 @@ export const PokemonRandom = ({ setPage, points, setPoints }) => {
                 LOSE
               </div>
               {points.userPoints + points.computerPoints >= 3 ? (
-                <button onClick={() => setPage(2)} className="end-bttn">
+                <button onClick={endGameHandler} className="end-bttn">
                   END GAME
                 </button>
               ) : null}
