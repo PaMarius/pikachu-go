@@ -51,56 +51,17 @@ export const PokemonList = ({ points, setPoints, setPage }) => {
     );
 
     if (userDamage === computerDamage) {
-      const userPokemon = choice[0];
-      const computerPokemon = choice[1];
-      if (userPokemon.base_experience > computerPokemon.base_experience) {
-        if (buttonVal === "win") {
-          setPoints({
-            userPoints: points.userPoints + 1,
-            computerPoints: points.computerPoints,
-          });
-        } else {
-          setPoints({
-            userPoints: points.userPoints,
-            computerPoints: points.computerPoints + 1,
-          });
-        }
-        getData();
-        return;
-      } else if (
-        userPokemon.base_experience < computerPokemon.base_experience
+      const userPokemon = choice[0].base_experience;
+      const computerPokemon = choice[1].base_experience;
+      if (
+        (userPokemon > computerPokemon && buttonVal === "win") ||
+        (buttonVal === "draw" && userPokemon === computerPokemon)
       ) {
-        if (buttonVal === "lose") {
-          setPoints({
-            userPoints: points.userPoints + 1,
-            computerPoints: points.computerPoints,
-          });
-        } else {
-          setPoints({
-            userPoints: points.userPoints,
-            computerPoints: points.computerPoints + 1,
-          });
-        }
-        getData();
-        return;
-      } else {
-        if (buttonVal === "draw") {
-          setPoints({
-            userPoints: points.userPoints + 1,
-            computerPoints: points.computerPoints,
-          });
-        } else {
-          setPoints({
-            userPoints: points.userPoints,
-            computerPoints: points.computerPoints + 1,
-          });
-        }
-        getData();
-        return;
-      }
-    }
-    if (userDamage > computerDamage) {
-      if (buttonVal === "win") {
+        setPoints({
+          userPoints: points.userPoints + 1,
+          computerPoints: points.computerPoints,
+        });
+      } else if (userPokemon < computerPokemon && buttonVal === "lose") {
         setPoints({
           userPoints: points.userPoints + 1,
           computerPoints: points.computerPoints,
@@ -111,18 +72,21 @@ export const PokemonList = ({ points, setPoints, setPage }) => {
           computerPoints: points.computerPoints + 1,
         });
       }
+    } else if (userDamage > computerDamage && buttonVal === "win") {
+      setPoints({
+        userPoints: points.userPoints + 1,
+        computerPoints: points.computerPoints,
+      });
+    } else if (userDamage < computerDamage && buttonVal === "lose") {
+      setPoints({
+        userPoints: points.userPoints + 1,
+        computerPoints: points.computerPoints,
+      });
     } else {
-      if (buttonVal === "lose") {
-        setPoints({
-          userPoints: points.userPoints + 1,
-          computerPoints: points.computerPoints,
-        });
-      } else {
-        setPoints({
-          userPoints: points.userPoints,
-          computerPoints: points.computerPoints + 1,
-        });
-      }
+      setPoints({
+        userPoints: points.userPoints,
+        computerPoints: points.computerPoints + 1,
+      });
     }
     getData();
   }
