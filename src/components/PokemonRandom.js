@@ -2,14 +2,18 @@ import { useEffect, useState } from "react";
 import { PokemonCard } from "./PokemonCard";
 import "./PokemonRandom.scss";
 import calculateDamage from "../constants/calculateDamage";
+import { DoublePoints } from "./double points/DoublePoints";
 
 export const PokemonRandom = ({ setPage, points, setPoints }) => {
   const [pokemonList, setPokemonList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [timer, setTimer] = useState(3);
   setTimeout(() => {
-    setLoading(true);
-  }, 4000);
+    setTimer(timer - 1);
+    setTimeout(()=>{
+      setLoading(true);
+    }, 2000)
+  }, 1000);
   async function getData() {
     const result = await Promise.all(
       [0, 1].map(async (item) => {
@@ -95,6 +99,14 @@ export const PokemonRandom = ({ setPage, points, setPoints }) => {
     }
     getData();
   }
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const endGameHandler = () => {
+    setModalIsOpen(true);
+  };
+  const closeModalHandler = () => {
+    setPage(2);
+  };
 
   return (
     <>
