@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { PokemonCard } from "./PokemonCard";
 import "./PokemonRandom.scss";
 import calculateDamage from "../constants/calculateDamage";
+import { DoublePoints } from "./double points/DoublePoints";
 
 export const PokemonRandom = ({ setPage, points, setPoints }) => {
   const [pokemonList, setPokemonList] = useState([]);
@@ -96,6 +97,14 @@ export const PokemonRandom = ({ setPage, points, setPoints }) => {
     getData();
   }
 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const endGameHandler = () => {
+    setModalIsOpen(true);
+  };
+  const closeModalHandler = () => {
+    setPage(2);
+  };
+
   return (
     <>
       <div className="container2">
@@ -145,6 +154,15 @@ export const PokemonRandom = ({ setPage, points, setPoints }) => {
           </div>
         ) : (
           <div className="timer">{timer}</div>
+        )}
+
+        {modalIsOpen && (
+          <DoublePoints
+            onClick={closeModalHandler}
+            userPoints={points.userPoints}
+            setPoints={setPoints}
+            setPage={setPage}
+          />
         )}
       </div>
     </>
