@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./pokemonList.css";
 
-function DisplayPokemonList() {
+function DisplayPokemonList({ changePage }) {
   const [pokemonData, setPokemonData] = useState([]);
 
   const offset = useRef(0);
@@ -39,6 +39,9 @@ function DisplayPokemonList() {
 
   return (
     <>
+      <div className="close">
+        <img src={"./x.svg"} className="X" onClick={() => changePage(0)} />
+      </div>
       <img className="pokemon-logo" src="./pokemonLogo.png" />
       {pokemonData.length > 0 ? (
         <div className="pokemon-container">
