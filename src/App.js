@@ -5,6 +5,7 @@ import StartPage from "./components/StartPage";
 import { PokemonRandom } from "./components/PokemonRandom";
 import { NavBar } from "./components/NavBar";
 import { DoublePoints } from "./components/double points/DoublePoints";
+import DisplayPokemonList from "./components/pokemonList/displayPokemonList";
 
 function App() {
   const [page, setPage] = useState(0);
@@ -26,6 +27,8 @@ function App() {
         return (
           <FinalPage setPage={setPage} points={points} setPoints={setPoints} />
         );
+      case 3:
+        return <DisplayPokemonList />;
     }
   }
 

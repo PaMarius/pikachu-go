@@ -36,7 +36,7 @@ export const NavBar = ({ setPage, page, onClick }) => {
                 <li
                   key={index}
                   className={data.className}
-                  onClick={() => setPage(data.case)}
+                  onClick={() => setPage(3)}
                 >
                   {data.icon}
                   <span>{data.name}</span>
