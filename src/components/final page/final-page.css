@@ -1,4 +1,4 @@
-@import "./css-reset.css";
+@import "../../constants/css-reset.css";
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;500&display=swap");
 
 @font-face {
