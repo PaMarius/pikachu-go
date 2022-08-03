@@ -1,0 +1,15 @@
+.pokemon-logo{
+    width:300px;
+    display:block;
+    margin:auto;
+    margin-top:1rem;
+}
+
+.pokemon-container{
+    display:flex;
+    flex-wrap: wrap;
+    margin-top:4rem;
+    row-gap:3rem;
+    column-gap:1rem;
+    justify-content: space-around;
+}
