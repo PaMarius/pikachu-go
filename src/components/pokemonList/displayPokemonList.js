@@ -40,7 +40,11 @@ function DisplayPokemonList({ changePage }) {
   return (
     <>
       <div className="close">
-        <img src={"./x.svg"} className="X" onClick={() => changePage(0)} />
+        <img
+          src={"./back-arrow.svg"}
+          className="arrow"
+          onClick={() => changePage(0)}
+        />
       </div>
       <img className="pokemon-logo" src="./pokemonLogo.png" />
       {pokemonData.length > 0 ? (
