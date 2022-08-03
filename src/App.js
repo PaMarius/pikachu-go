@@ -28,7 +28,7 @@ function App() {
           <FinalPage setPage={setPage} points={points} setPoints={setPoints} />
         );
       case 3:
-        return <DisplayPokemonList />;
+        return <DisplayPokemonList changePage={setPage} />;
     }
   }
 
