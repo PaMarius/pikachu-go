@@ -3,6 +3,8 @@ import { PokemonCard } from "./components/PokemonCard";
 import { FinalPage } from "./components/final page/FinalPage";
 import StartPage from "./components/StartPage";
 import { PokemonRandom } from "./components/PokemonRandom";
+import { NavBar } from "./components/NavBar";
+import { DoublePoints } from "./components/double points/DoublePoints";
 
 function App() {
   const [page, setPage] = useState(0);
