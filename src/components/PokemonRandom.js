@@ -10,9 +10,9 @@ export const PokemonRandom = ({ setPage, points, setPoints }) => {
   const [timer, setTimer] = useState(3);
   setTimeout(() => {
     setTimer(timer - 1);
-    setTimeout(()=>{
+    setTimeout(() => {
       setLoading(true);
-    }, 2000)
+    }, 2000);
   }, 1000);
   async function getData() {
     const result = await Promise.all(
