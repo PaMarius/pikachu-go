@@ -10,11 +10,20 @@ export const FinalPage = ({ setPage, points, setPoints }) => {
         <button
           className="start-over-btn"
           onClick={() => {
-            setPage(0);
+            setPage(1);
             setPoints({ userPoints: 0, computerPoints: 0 });
           }}
         >
           Restart Game
+        </button>
+        <button
+          className="start-over-btn"
+          onClick={() => {
+            setPage(0);
+            setPoints({ userPoints: 0, computerPoints: 0 });
+          }}
+        >
+          Menu
         </button>
       </div>
     </div>

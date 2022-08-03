@@ -14,6 +14,6 @@ export const SidebarData = [
     name: "Pokemon List",
     icon: <TbIcons.TbPokeball />,
     className: "nav-text",
-    case: 3,
+    // case: de completat,
   },
 ];
