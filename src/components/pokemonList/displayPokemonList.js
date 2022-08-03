@@ -3,7 +3,6 @@ import "./pokemonList.css";
 
 function DisplayPokemonList() {
   const [pokemonData, setPokemonData] = useState([]);
-
   const offset = useRef(0);
 
   async function getPokemon() {
@@ -19,7 +18,15 @@ function DisplayPokemonList() {
         return result;
       })
     );
-    setPokemonData((preValue) => [...preValue, ...pokemonArr]);
+
+    setPokemonData((preValue) => {
+      const arr = [...preValue, ...pokemonArr];
+      const ids = arr.map((item) => item.id);
+      const filter = arr.filter(
+        ({ id }, index) => !ids.includes(id, index + 1)
+      );
+      return filter;
+    });
   }
 
   function handleScroll(e) {
@@ -31,6 +38,7 @@ function DisplayPokemonList() {
       getPokemon();
     }
   }
+
   useEffect(() => {
     getPokemon();
     window.addEventListener("scroll", handleScroll);
