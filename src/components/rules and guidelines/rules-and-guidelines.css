@@ -1,19 +1,10 @@
 @import "../../constants/css-reset.css";
-@import url("https://fonts.googleapis.com/css2?family=Mouse+Memoirs&display=swap");
-
-@font-face {
-  font-family: "Pokemon Hollow";
-  src: url("../../fonts/Pokemon\ Hollow.ttf");
-}
-
-@font-face {
-  font-family: "Pokemon Solid";
-  src: url("../../fonts/Pokemon\ Solid.ttf");
-}
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap");
 @font-face {
   font-family: "Pocket Monk";
   src: url("../../fonts/PocketMonk-15ze.ttf");
 }
+
 * {
   box-sizing: border-box;
 }
@@ -29,4 +20,58 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.white-container {
+  max-width: 60%;
+  max-height: 90%;
+  overflow: auto;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2em 4em;
+}
+
+.x {
+  align-self: flex-end;
+}
+
+.x:hover {
+  cursor: pointer;
+}
+
+.title {
+  font-family: "Pocket Monk";
+  text-align: center;
+  font-size: 2.5em;
+  letter-spacing: 3px;
+  margin-top: 0.25em;
+  color: #ff4c4c;
+}
+.pokeball {
+  margin-right: 1em;
+}
+
+.rules {
+  margin-top: 2em;
+  width: 100%;
+}
+
+.rule {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.4em;
+  margin-bottom: 1em;
+  line-height: 1.5;
+}
+
+#pokemon-chart {
+  width: 80%;
+}
+
+.title:nth-of-type(2) {
+  margin-top: 1em;
 }
