@@ -16,9 +16,11 @@ export const PokemonCard = ({ pokemon }) => {
       </div>
       <div className="pokemon-name">{pokemon.name.toUpperCase()}</div>
       <div className="pokemon-types">
-        {pokemon.types.map((type) => {
+        {pokemon.types.map((type, index) => {
           return (
-            <div className={styleForType}>{type.type.name.toUpperCase()}</div>
+            <div key={index} className={styleForType}>
+              {type.type.name.toUpperCase()}
+            </div>
           );
         })}
       </div>
