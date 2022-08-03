@@ -18,7 +18,7 @@ export const RulesAndGuidelines = ({ onClick }) => {
           />
           <Rule
             text="By clicking one of the buttons, you decide if the pokemon on the
-            LEFT side of the screen will win or lose agains the pokemon on the
+            LEFT side of the screen will win or lose against the pokemon on the
             RIGHT"
           />
 
