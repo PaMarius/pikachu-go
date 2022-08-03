@@ -39,8 +39,14 @@
 }
 
 .timer {
-  font-size: 100px;
-  margin-bottom: 200px;
+  font-family: "Mouse Memoirs";
+  color: white;
+  font-size: 200px;
+  width: 20%;
+  text-align: center;
+  margin-bottom: 300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .buttons {
@@ -51,7 +57,7 @@
 
 .win-bttn,
 .draw-bttn,
-.lose-bttn, 
+.lose-bttn,
 .end-bttn {
   font-family: "Mouse Memoirs";
   font-size: 250px;
@@ -92,5 +98,3 @@
   top: 0px;
   left: 0px;
 }
-
-
