@@ -4,7 +4,7 @@ import * as AiIcons from "react-icons/ai";
 import { SidebarData } from "./SideBar";
 import "./NavBar.css";
 
-export const NavBar = ({ setPage, page }) => {
+export const NavBar = ({ setPage, page, onClick }) => {
   const [sidebar, setSidebar] = useState(false);
 
   const handleSidebar = () => setSidebar(!sidebar);
@@ -24,16 +24,24 @@ export const NavBar = ({ setPage, page }) => {
             <AiIcons.AiOutlineClose />
           </li>
           {SidebarData.map((data, index) => {
-            return (
-              <li
-                key={index}
-                className={data.className}
-                onClick={() => setPage(data.case)}
-              >
-                {data.icon}
-                <span>{data.name}</span>
-              </li>
-            );
+            if (data.name == "Rules") {
+              return (
+                <li key={index} className={data.className} onClick={onClick}>
+                  {data.icon}
+                  <span>{data.name}</span>
+                </li>
+              );
+            } else
+              return (
+                <li
+                  key={index}
+                  className={data.className}
+                  onClick={() => setPage(data.case)}
+                >
+                  {data.icon}
+                  <span>{data.name}</span>
+                </li>
+              );
           })}
         </ul>
       </nav>

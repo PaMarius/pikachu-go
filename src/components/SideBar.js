@@ -9,7 +9,6 @@ export const SidebarData = [
     name: "Rules",
     icon: <BsExclamationLg />,
     className: "nav-text",
-    case: 3,
   },
   {
     name: "Pokemon List",

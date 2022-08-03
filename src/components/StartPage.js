@@ -15,9 +15,8 @@ function StartPage({ setPage }) {
 
   return (
     <div className="container">
-      <button onClick={burgerHandler}>Click me</button>
       {modalIsOpen && <RulesAndGuidelines onClick={closeModalHandler} />}
-      <NavBar setPage={setPage} />
+      <NavBar setPage={setPage} onClick={burgerHandler} />
       <button onClick={() => setPage(1)} className="start-button">
         START GAME
       </button>
