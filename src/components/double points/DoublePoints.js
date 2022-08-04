@@ -33,7 +33,7 @@ export const DoublePoints = (props) => {
   };
 
   const checkGuess = () => {
-    if (userInput == pokemon.name) {
+    if (userInput.toLocaleLowerCase() == pokemon.name) {
       setPoints({ userPoints: userPoints * 2 });
       setPage(2);
     } else {
