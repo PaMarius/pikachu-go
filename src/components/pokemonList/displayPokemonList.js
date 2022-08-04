@@ -4,6 +4,7 @@ import "./pokemonList.css";
 function DisplayPokemonList({ changePage }) {
   const [pokemonData, setPokemonData] = useState([]);
   const offset = useRef(0);
+  const firstRender = useRef(true);
 
   async function getPokemon() {
     const fetchData = await fetch(
@@ -18,15 +19,7 @@ function DisplayPokemonList({ changePage }) {
         return result;
       })
     );
-
-    setPokemonData((preValue) => {
-      const arr = [...preValue, ...pokemonArr];
-      const ids = arr.map((item) => item.id);
-      const filter = arr.filter(
-        ({ id }, index) => !ids.includes(id, index + 1)
-      );
-      return filter;
-    });
+    setPokemonData((preValue) => [...preValue, ...pokemonArr]);
   }
 
   function handleScroll(e) {
@@ -40,7 +33,10 @@ function DisplayPokemonList({ changePage }) {
   }
 
   useEffect(() => {
-    getPokemon();
+    if (firstRender.current) {
+      getPokemon();
+      firstRender.current = false;
+    }
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
